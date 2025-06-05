@@ -85,7 +85,7 @@
                                             class="img-fluid rounded mb-2"
                                             style="height: 220px; width: 100%; object-fit: cover;">
                                     </a>
-                                    <h3 class="mt-2 text-start">{{ $product->title }}</h3>
+                                    <h3 class="mt-2 text-start"><a href="{{ route('product.details', ['id' => $product->id]) }}">{{ $product->title }}</a></h3>
 
                                     <div class="d-flex justify-content-between align-items-center mt-2">
                                         <div class="d-flex align-items-center">
