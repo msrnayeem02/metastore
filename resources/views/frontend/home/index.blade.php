@@ -1,7 +1,6 @@
 @extends('frontend.master')
 
 @section('content')
-    <!-- Hero Slider Start -->
     @php
         $heroBanners = json_decode(\App\Models\Setting::getValue('hero_banners'), true);
     @endphp
@@ -10,8 +9,7 @@
             <div class="carousel-inner">
                 @foreach ($heroBanners as $index => $banner)
                     <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-                        <img style="height: 500px" src="{{ asset($banner) }}" class="d-block w-100"
-                            alt="Banner {{ $index + 1 }}">
+                        <img style="height: 500px" src="{{ asset($banner) }}" class="d-block w-100" alt="Banner {{ $index + 1 }}">
                     </div>
                 @endforeach
             </div>
@@ -23,9 +21,7 @@
             </a>
         </div>
     @endif
-    <!-- Hero Slider End -->
 
-    <!--Style for Hover Effect -->
     <style>
         .product-img-hover {
             overflow: hidden;
@@ -33,18 +29,15 @@
             position: relative;
             border-radius: 8px;
         }
-
         .product-img-hover img {
             transition: all 0.4s ease-in-out;
         }
-
         .product-img-hover:hover img {
             transform: scale(1.1) translateY(-10px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
     </style>
 
-    <!-- Products Start -->
     <div class="container pt-5 pb-3">
         <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
             <span class="bg-secondary pr-3">All Products</span>
@@ -54,10 +47,9 @@
                 <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
                     <div class="bg-white shadow-sm rounded p-3 h-100 d-flex flex-column justify-content-between">
                         <div class="text-center">
-                            <a href="{{ route('product.details', ['id' => $product->id]) }}"
-                                class="product-img-hover">
-                                <img src="{{ asset($product->image) }}" alt="{{ $product->title }}"
-                                    class="img-fluid rounded mb-2" style="height: 220px; width: 100%; object-fit: cover;">
+                            <a href="{{ route('product.details', ['id' => $product->id]) }}" class="product-img-hover">
+                                <img src="{{ asset($product->image) }}" alt="{{ $product->title }}" class="img-fluid rounded mb-2"
+                                    style="height: 220px; width: 100%; object-fit: cover;">
                             </a>
 
                             <h3 class="mt-2 text-start">{{ $product->title }}</h3>
@@ -77,12 +69,10 @@
                         </div>
 
                         <div class="d-flex justify-content-between mt-3">
-                            <button class="btn btn-sm btn-outline-primary w-50 mr-1 add-to-cart"
-                                data-id="{{ $product->id }}">
+                            <button class="btn btn-sm btn-outline-primary w-50 mr-1 add-to-cart" data-id="{{ $product->id }}">
                                 Add To Cart
                             </button>
-                            <a href="{{ route('cart.orderNow', ['id' => $product->id]) }}"
-                                class="btn btn-sm btn-primary w-50 ml-1">
+                            <a href="{{ route('cart.orderNow', ['id' => $product->id]) }}" class="btn btn-sm btn-primary w-50 ml-1">
                                 Order Now
                             </a>
                         </div>
@@ -91,29 +81,30 @@
             @endforeach
         </div>
     </div>
-    <!-- Products End -->
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
+            
             $('.add-to-cart').on('click', function(e) {
                 e.preventDefault();
-                var productId = $(this).data('id');
+                const productId = $(this).data('id');
 
                 $.ajax({
-                    url: "{{ route('cart.add', ['id' => ':id']) }}".replace(':id', productId),
-                    method: "POST",
-                    data: {
-                        _token: "{{ csrf_token() }}",
+                    url: `/cart/add/${productId}`,
+                    type: 'GET',
+                    dataType: 'json',
+                    headers: {
+                        'Accept': 'application/json'
                     },
-                    success: function(response) {
-                        alert(response.message);
-                        if (response.totalQuantity !== undefined) {
-                            $('#cart-badge').text(response.totalQuantity).hide().fadeIn(200);
+                    success: function(data) {
+                        if (data.totalQuantity !== undefined) {
+                            $('#cart-badge').text(data.totalQuantity).hide().fadeIn(300);
                         }
+                        alert(data.message || 'Product added to cart');
                     },
-                    error: function(error) {
-                        console.log(error);
+                    error: function() {
+                        alert('Error adding item to cart');
                     }
                 });
             });

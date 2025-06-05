@@ -1,3 +1,4 @@
+{{-- shop.blade.php --}}
 @extends('frontend.master')
 
 @section('content')
