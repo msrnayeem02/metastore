@@ -21,7 +21,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark header-2 sticky-top">
     <div class="container-fluid ">
 
-        <a href="#">
+        <a href="/">
             <img src="{{ asset(\App\Models\Setting::getValue('logo')) }}" alt="logo" width="60">
         </a>
 

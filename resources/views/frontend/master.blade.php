@@ -54,6 +54,12 @@
     @endif
     <!-- End Meta Pixel Code -->
     <meta charset="utf-8">
+    @php
+        $siteTitle = \App\Models\Tenant::where('custom_domain', request()->getHost())->value('shop_name');
+    @endphp
+
+<title>{{ $siteTitle ?? 'Best Ecommerce' }}</title>
+
     <title>MultiShop - Ecommerce</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
