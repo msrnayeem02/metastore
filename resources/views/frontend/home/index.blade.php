@@ -56,7 +56,7 @@
                         <div class="text-center">
                             <a href="{{ route('product.details', ['id' => $product->id]) }}"
                                 class="product-img-hover">
-                                <img src="{{ asset('/') }}{{ $product->image }}" alt="{{ $product->title }}"
+                                <img src="{{ asset($product->image) }}" alt="{{ $product->title }}"
                                     class="img-fluid rounded mb-2" style="height: 220px; width: 100%; object-fit: cover;">
                             </a>
 

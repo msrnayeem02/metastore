@@ -96,7 +96,7 @@
                 <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
                     <div class="bg-white shadow-sm rounded p-3 h-100 d-flex flex-column justify-content-between">
                         <div class="text-center">
-                            <a href="{{ route('product-detail', ['id' => $relatedProduct->id]) }}"
+                            <a href="{{ route('product.details', ['id' => $relatedProduct->id]) }}"
                                 class="product-img-hover">
                                 <img src="{{ asset($relatedProduct->image) }}" alt="{{ $relatedProduct->title }}"
                                     class="img-fluid rounded mb-2" style="height: 220px; width: 100%; object-fit: cover;">
